@@ -124,6 +124,20 @@
         background-color: #8a6d34;
     }
 
+    @keyframes blinker {
+        50% {
+            color: #323436;
+        }
+    }
+
+    .blink {
+        animation: blinker 1s linear infinite;
+    }
+
+    #field td.missed {
+        background-color: #3d4042;
+    }
+
     #keyboard td.missed {
         background-color: #323436;
         color: #72737b;
@@ -147,12 +161,16 @@
         padding: 2vw;
         border-radius: 0.25vh;
     }
+
+    .dimmed {
+        opacity: 0.2;
+    }
 </style>
 <body>
 <div id="root">
     <header>
         <button onclick="help()">&#9432;</button>
-        <span>Еще одно слово<sup> beta 7</sup></span>
+        <span>Еще одно слово<sup> beta 8</sup></span>
         <button onclick="settings()">&#9881;</button>
     </header>
     <table id="field"></table>
@@ -264,6 +282,14 @@
             }
         }
 
+        if (key === kRet) {
+            cls = (field[currentRow][wordLen-1] === "") ? "dimmed" : "blink";
+        }
+
+        if (key === kBsp) {
+            cls = (field[currentRow][0] === "") ? "dimmed" : "";
+        }
+
         return `<td class="${cls}" onclick="onKeyClick('${key}')" class="key-btn">${key}</td>`;
     }
 
@@ -305,16 +331,23 @@
 
     function updateField() {
         fieldTable.innerHTML = field.map((row, j) =>
-            `<tr>${row.map((c, i) => getLetter(c, i, j < currentRow)).join("")}</tr>`).join("\n")
+            `<tr>${row.map((c, i) => getLetter(c, i, j)).join("")}</tr>`).join("\n")
     }
 
-    function getLetter(char, index, colorize) {
-        let cls = "";
+    function getLetter(char, col, row) {
+        const colorize = row < currentRow;
+        let cls = colorize ? "missed" : "";
         if (colorize) {
-            if (guessedWord[index] === char) {
+            if (guessedWord[col] === char) {
                 cls = "correct";
             } else if (guessedWord.indexOf(char) >= 0) {
                 cls = "misplaced";
+            }
+        }
+        if (char === "") {
+            if ((row == currentRow) && ((col === 0) || (field[row][col-1] !== ""))) {
+                cls = "blink";
+                char = "_";
             }
         }
         return `<td class="${cls}">${char}</td>`;
