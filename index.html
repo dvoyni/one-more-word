@@ -2,23 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>One more word</title>
-    <meta name="keywords" content="wordle, unlimited, русский, на русском, слова">
+    <title>Еде одно слово</title>
+    <meta name="keywords" content="wordle, unlimited, русский, на русском, слова, игра">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () {
+                (m[i].a = m[i].a || []).push(arguments)
+            };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
         ym(87246213, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/87246213" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/87246213" style="position:absolute; left:-9999px;" alt=""/></div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
 </head>
 <style>
@@ -28,18 +35,24 @@
         margin: 0;
         position: fixed;
         height: 100%;
+        width: 100%;
 
         font-family: sans-serif;
         color: #b4b4b4;
     }
 
-    #root {
-        width: 100vw;
+    #root, #help {
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
+    }
+
+    #help {
+        width: 80%;
+        margin: 0 10%;
     }
 
     header {
@@ -56,7 +69,7 @@
         font-size: 1vh;
     }
 
-    header button {
+    header button, #help button {
         font-size: 3vh;
         width: 6vh;
         height: 6vh;
@@ -66,7 +79,7 @@
         border-radius: 1vh;
     }
 
-    header button:active {
+    header button:active, #help button:active {
         background-color: rgba(86, 148, 185, 0.5);
     }
 
@@ -98,11 +111,11 @@
         border-radius: 0.25vh;
     }
 
-    #keyboard td.correct, #field td.correct {
+    #keyboard td.correct, #field td.correct, .correct {
         background-color: #52642b;
     }
 
-    #keyboard td.misplaced, #field td.misplaced {
+    #keyboard td.misplaced, #field td.misplaced, .misplaced {
         background-color: #8a6d34;
     }
 
@@ -117,7 +130,7 @@
         height: min(54vw, 30vh);
     }
 
-    #defeat button, #victory button {
+    #defeat button, #victory button, #help button {
         width: 80vw;
     }
 
@@ -133,8 +146,9 @@
 <body>
 <div id="root">
     <header>
-        <!--button onclick="help()">&#9432;</button-->
-        <span>Еще одно слово<sup>beta 3</sup></span>
+        <button onclick="help()">&#9432;</button>
+        <span>Еще одно слово<sup>beta 4</sup></span>
+        <span></span>
         <!--button onclick="settings()">&#9881;</button-->
     </header>
     <table id="field"></table>
@@ -149,8 +163,21 @@
         <button onclick="window.location.reload()">Еще одно слово? &#x23ce;</button>
     </header>
 </div>
-<div id="help">
-
+<div id="help" style="display: none">
+    <div style="flex: 1"></div>
+    <header>Еще одно слово</header>
+    <div>
+        <p>Цель игры: угадать слово за 6 или менее попыток.</p>
+        <p>После очередной попытки ввода слова его буквы будут раскрашены по следующим правилам:</p>
+        <ul>
+        <li><span class="misplaced">Желтым</span> &mdash; если эта буква присутствует в загаданном слове;</li>
+        <li><span class="correct">Зеленым</span> &mdash; если эта буква присутствует и стоит на верной позиции.</li>
+        </ul>
+        <p>Используя эти подсказки, попробуйте угадать слово!</p>
+    </div>
+    <div style="flex: 1"></div>
+    <button onclick="window.location.reload()">Играть</button>
+    <div style="flex: 1"></div>
 </div>
 </body>
 <script lang="JavaScript">
@@ -181,9 +208,13 @@
     updateKeyboard()
     updateField()
 
+    if (!localStorage["helped"]) {
+        help();
+    }
+
     function updateKeyboard() {
-        const defeat = currentRow >= maxTries;
-        keyboardTable.style.display = (won||defeat) ? "none" : "";
+        const defeat = !won && (currentRow >= maxTries);
+        keyboardTable.style.display = (won || defeat) ? "none" : "";
         victoryPanel.style.display = won ? "flex" : "";
         defeatPanel.style.display = defeat ? "flex" : "";
 
@@ -283,7 +314,9 @@
     }
 
     function help() {
-
+        document.getElementById("root").style.display = "none";
+        document.getElementById("help").style.display = "flex";
+        localStorage["helped"] = "true";
     }
 
     function settings() {
