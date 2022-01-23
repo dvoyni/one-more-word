@@ -113,6 +113,7 @@
         border: 0.5vw;
         text-transform: uppercase;
         border-radius: 0.25vh;
+        user-select: none;
     }
 
     #keyboard td.correct, #field td.correct, .correct {
@@ -151,7 +152,7 @@
 <div id="root">
     <header>
         <button onclick="help()">&#9432;</button>
-        <span>Еще одно слово<sup> beta 6</sup></span>
+        <span>Еще одно слово<sup> beta 7</sup></span>
         <button onclick="settings()">&#9881;</button>
     </header>
     <table id="field"></table>
@@ -187,7 +188,7 @@
     <header>Настройки</header>
     <div>
         <p>Длина слова:
-            <select onchange="setWordLen(this.value)">
+            <select id="settings-length" onchange="setWordLen(this.value)">
                 <option value="5">5 букв</option>
                 <option value="6">6 букв</option>
                 <option value="7">7 букв</option>
@@ -326,6 +327,9 @@
 
         if (dictionary[wordLen].indexOf(word) < 0) {
             alert(`В словаре отсутствует слово «${word}»!`)
+            for (i = 0; i < field[currentRow].length; i++) {
+                field[currentRow][i] = "";
+            }
             return;
         }
         currentRow++;
@@ -341,6 +345,7 @@
     function settings() {
         document.getElementById("root").style.display = "none";
         document.getElementById("settings").style.display = "flex";
+        document.getElementById("settings-length").value = localStorage["word-length"] || "5";
     }
 
     function setWordLen(n) {
