@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Еде одно слово</title>
+    <title>Еще одно слово</title>
     <meta name="keywords" content="wordle, unlimited, русский, на русском, слова, игра">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
@@ -185,13 +185,13 @@
     const victoryPanel = document.getElementById("victory");
     const defeatPanel = document.getElementById("defeat");
 
-    const worldLen = 5;
+    const wordLen =  parseInt(localStorage["word-length"] || "5", 10);
     const maxTries = 6;
     const kRet = "\u23ce";
     const kBsp = "\u232b";
     const keyboard = `йцукенгшщзх|фывапролджэ|${kBsp}ячсмитьбю${kRet}`;
 
-    let field = [...Array(maxTries)].map(_ => [...Array(worldLen)].map(_ => ""));
+    let field = [...Array(maxTries)].map(_ => [...Array(wordLen)].map(_ => ""));
     let currentRow = 0;
     let won = false;
 
@@ -227,7 +227,7 @@
         let cls = "";
 
         for (let i = 0; i < currentRow; i++) {
-            for (let j = 0; j < worldLen; j++) {
+            for (let j = 0; j < wordLen; j++) {
                 const c = field[i][j];
                 if (c === key) {
                     if (guessedWord[j] === c) {
@@ -300,11 +300,11 @@
     }
 
     function checkWord(word) {
-        if (word.length !== worldLen) {
+        if (word.length !== wordLen) {
             return;
         }
 
-        if (dictionary[worldLen].indexOf(word) < 0) {
+        if (dictionary[wordLen].indexOf(word) < 0) {
             alert(`В словаре отсутствует слово «${word}»!`)
             return;
         }
@@ -4265,8 +4265,8 @@
         ]
     };
 
-    const guessedWord = dictionary[worldLen][
-        Math.floor(Math.random() * dictionary[worldLen].length)];
+    const guessedWord = dictionary[wordLen][
+        Math.floor(Math.random() * dictionary[wordLen].length)];
 
     document.getElementById("guessed-word").innerText = guessedWord;
 </script>
