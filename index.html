@@ -41,7 +41,7 @@
         color: #b4b4b4;
     }
 
-    #root, #help {
+    #root, #help, #settings {
         width: 100%;
         height: 100%;
         display: flex;
@@ -50,7 +50,7 @@
         flex-direction: column;
     }
 
-    #help {
+    #help, #settings {
         width: 80%;
         margin: 0 10%;
     }
@@ -69,7 +69,7 @@
         font-size: 1vh;
     }
 
-    header button, #help button {
+    header button, #help button, #settings button {
         font-size: 3vh;
         padding: 1.5vh;
         border: none;
@@ -78,8 +78,13 @@
         border-radius: 1vh;
     }
 
-    header button:active, #help button:active {
-        background-color: rgba(86, 148, 185, 0.5);
+
+    #settings select {
+        padding: 0.5vh 1.5vh;
+        border: none;
+        background-color: rgba(86, 148, 185, 0.1);
+        color: #5694b9;
+        border-radius: 0.5vh;
     }
 
     #field {
@@ -129,7 +134,7 @@
         height: min(54vw, 30vh);
     }
 
-    #defeat button, #victory button, #help button {
+    #defeat button, #victory button, #help button, #settings button {
         width: 80vw;
     }
 
@@ -146,9 +151,8 @@
 <div id="root">
     <header>
         <button onclick="help()">&#9432;</button>
-        <span>Еще одно слово<sup> beta 5</sup></span>
-        <span></span>
-        <!--button onclick="settings()">&#9881;</button-->
+        <span>Еще одно слово<sup> beta 6</sup></span>
+        <button onclick="settings()">&#9881;</button>
     </header>
     <table id="field"></table>
     <table id="keyboard"></table>
@@ -173,6 +177,22 @@
         <li><span class="correct">Зеленым</span> &mdash; если эта буква присутствует и стоит на верной позиции.</li>
         </ul>
         <p>Используя эти подсказки, попробуйте угадать слово!</p>
+    </div>
+    <div style="flex: 1"></div>
+    <button onclick="window.location.reload()">Играть</button>
+    <div style="flex: 1"></div>
+</div>
+<div id="settings" style="display: none">
+    <div style="flex: 1"></div>
+    <header>Настройки</header>
+    <div>
+        <p>Длина слова:
+            <select onchange="setWordLen(this.value)">
+                <option value="5">5 букв</option>
+                <option value="6">6 букв</option>
+                <option value="7">7 букв</option>
+            </select>
+        </p>
     </div>
     <div style="flex: 1"></div>
     <button onclick="window.location.reload()">Играть</button>
@@ -319,7 +339,12 @@
     }
 
     function settings() {
+        document.getElementById("root").style.display = "none";
+        document.getElementById("settings").style.display = "flex";
+    }
 
+    function setWordLen(n) {
+        localStorage["word-length"] = n;
     }
 
     const dictionary = {
