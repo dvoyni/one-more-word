@@ -22,6 +22,7 @@ function nextGame() {
     guessedWord = dictionary[wordLen][Math.floor(Math.random() * dictionary[wordLen].length)];
     updateKeyboard()
     updateField()
+    document.getElementById("guessed-word").innerText = guessedWord;
 
     if (gameNum%2 === 1) {
         if (vkEnable) {
@@ -265,5 +266,4 @@ function setDifficulty(n) {
 }
 
 let guessedWord = dictionary[wordLen][Math.floor(Math.random() * dictionary[wordLen].length)];
-
 document.getElementById("guessed-word").innerText = guessedWord;
