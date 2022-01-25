@@ -13,6 +13,25 @@ const keyboard = `йцукенгшщзх|фывапролджэ|${kBsp}ячсм�
 let field = [...Array(maxTries)].map(_ => [...Array(wordLen)].map(_ => ""));
 let currentRow = 0;
 let won = false;
+let gameNum = 0;
+
+function nextGame() {
+     field = [...Array(maxTries)].map(_ => [...Array(wordLen)].map(_ => ""));
+     currentRow = 0;
+     won = false;
+    guessedWord = dictionary[wordLen][Math.floor(Math.random() * dictionary[wordLen].length)];
+    updateKeyboard()
+    updateField()
+
+    if (gameNum%2 === 1) {
+        if (vkEnable) {
+            vkBridge.send("VKWebAppShowNativeAds", {ad_format: "interstitial"})
+                .then(data => console.log(data.result))
+                .catch(error => console.log(error));
+        }
+    }
+    gameNum++;
+}
 
 document.onkeydown = e => {
     let key = e.key;
@@ -245,7 +264,6 @@ function setDifficulty(n) {
     localStorage["difficulty"] = n.target.value;
 }
 
-const guessedWord = dictionary[wordLen][
-    Math.floor(Math.random() * dictionary[wordLen].length)];
+let guessedWord = dictionary[wordLen][Math.floor(Math.random() * dictionary[wordLen].length)];
 
 document.getElementById("guessed-word").innerText = guessedWord;

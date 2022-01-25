@@ -28,24 +28,43 @@
         <div><img src="https://mc.yandex.ru/watch/87246213" style="position:absolute; left:-9999px;" alt=""/></div>
     </noscript>
     <!-- /Yandex.Metrika counter -->
+
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        let vkEnable = getParameterByName("vk");
+        if (vkEnable) {
+            // Sends event to client
+            vkBridge.send('VKWebAppInit');
+        }
+    </script>
 </head>
 <body>
 <div id="root">
     <header>
         <button onclick="help()">&#9432;</button>
-        <span>Еще одно слово<sup> beta 10</sup></span>
+        <span>Еще одно слово<sup> beta 11</sup></span>
         <button onclick="settings()">&#9881;</button>
     </header>
     <table id="field"></table>
     <table id="keyboard"></table>
     <header id="victory">
         <span>Победа!</span>
-        <button onclick="window.location.reload()">Еще одно слово? &#x23ce;</button>
+        <button onclick="nextGame()">Еще одно слово? &#x23ce;</button>
     </header>
     <header id="defeat">
         <span>Загаданное слово:</span>
         <span id="guessed-word"></span>
-        <button onclick="window.location.reload()">Еще одно слово? &#x23ce;</button>
+        <button onclick="nextGame()">Еще одно слово? &#x23ce;</button>
     </header>
 </div>
 <div id="help" style="display: none">
