@@ -99,7 +99,7 @@ function onKeyClick(key) {
     }
 
     if ((won || currentRow >= maxTries) && key === kRet) {
-        window.location.reload();
+        nextGame();
         return;
     }
 
