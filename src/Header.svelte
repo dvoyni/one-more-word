@@ -34,6 +34,6 @@
     }
 
     sup {
-        font-size: 25%;
+        font-size: 50%;
     }
 </style>

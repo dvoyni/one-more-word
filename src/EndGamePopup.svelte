@@ -2,6 +2,7 @@
     import Popup from "./Popup.svelte";
     import {kStatusAbsent, kStatusCorrect, kStatusMisplaced, model} from "./model";
     import Button from "./Button.svelte";
+    import vnd from "./vnd";
 
     export let locale = {};
 
@@ -29,7 +30,8 @@
                         {/if}
                     {/each}
                 </table>
-                <div>{locale.averageTries}<span class="tries">{$model.averageTries.toFixed(2)}</span></div>
+                <div>{locale.averageTries}</div>
+                <div class="tries">{$model.averageTries.toFixed(2)}</div>
             {/if}
             {#if $model.defeat}
                 <div>{locale.guessedWord}</div>
@@ -42,7 +44,15 @@
                 </table>
             {/if}
             <div class="button">
-                <Button on:click={handleNextGameClick}>{locale.nextGame}</Button>
+                <div class="social">
+                    {#each vnd.buttons as b}
+                        <Button on:click={b.handle} small>{@html b.html}</Button>
+                    {/each}
+
+                </div>
+                <div>
+                    <Button on:click={handleNextGameClick}>{locale.nextGame}</Button>
+                </div>
             </div>
         </div>
     </Popup>
@@ -95,5 +105,18 @@
     .title, .tries {
         font-size: 4vh;
         color: #5694b9;
+    }
+
+    .social {
+        margin-bottom: 1vh;
+        text-align: center;
+    }
+
+    :global(.social button) {
+        margin: 1vw !important;
+    }
+
+    .button {
+        text-align: center;
     }
 </style>

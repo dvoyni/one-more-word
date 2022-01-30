@@ -13,7 +13,6 @@
         <Row value={row} index={i} size={cellSize} model={model}/>
     {/each}
 </div>
-<div>{model.guessedWord}</div>
 
 <style>
     .field {

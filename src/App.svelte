@@ -7,8 +7,10 @@
     import EndGamePopup from "./EndGamePopup.svelte";
     import vnd from "./vnd";
     import Help from "./Help.svelte";
+    import Settings from "./Settings.svelte";
+    import {getDifficulty, getWordLen} from "./storage";
 
-    model.set(createStore(locale.dictionary, locale.keyboard).init(5, 6, 0))
+    model.set(createStore(locale.dictionary, locale.keyboard).init(getWordLen(), 6, getDifficulty()))
 
     function handleKeydown(e) {
         let key = e.key;
@@ -58,8 +60,9 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<Game {locale} version="beta 16"/>
+<Game {locale} version="b16"/>
 <Help {locale}/>
+<Settings {locale} />
 <MessagePopup {locale}/>
 <EndGamePopup {locale}/>
 

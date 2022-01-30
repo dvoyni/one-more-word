@@ -6,7 +6,11 @@ const vnd = {
     init: function () {
     },
     handleNewGame: function () {
-    }
+    },
+    canInvite: false,
+    handleInvite: function () {
+    },
+    buttons: [],
 };
 
 if (vkEnable) {
@@ -69,6 +73,21 @@ if (vkEnable) {
             await bridge.send("VKWebAppShowNativeAds", {ad_format: "interstitial"});
         }
     }
+
+    vnd.buttons = [
+        {
+            html: "Пригласить друзей",
+            handle: async function () {
+                bridge.send("VKWebAppShowInviteBox", {})
+            }
+        },
+        {
+            html: "Добавить игру в избранное",
+            handle: async function () {
+                bridge.send("VKWebAppAddToFavorites");
+            }
+        }
+    ];
 }
 
 export default vnd;

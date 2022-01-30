@@ -8,6 +8,15 @@ export default {
     defeat: "Неудача",
     guessedWord: "Загаданное слово:",
     nextGame: "Еще одно слово?",
+    settings: "Настройки",
+    wordLength: "Длина слова:",
+    nLetters: "$0 букв",
+    difficulty: "Сложность:",
+    difficultyNames: [
+        "Легко. Можно вводить любую комбинацию букв",
+        "Норма. Только словарные слова",
+        "Сложно. Нельзя вводить потенциально неверные слова"
+    ],
     kMsgWordNotInDictionary: "Слово «$0» не найдено в словаре.",
     kMsgLetterMissed: "Буква «$0» должна быть использована.",
     kMsgInsufficientLetter: "Буквы «$0» не может быть в слове.",

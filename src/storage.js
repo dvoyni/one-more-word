@@ -13,3 +13,16 @@ export function setTriesAverage(sum, tires) {
     localStorage["triesSum"] = sum.toString();
     localStorage["tries"] = tires.toString();
 }
+
+export function setSettings(wordLen, difficulty){
+    localStorage["wordLen"] = wordLen.toString();
+    localStorage["difficulty"] = difficulty.toString()
+}
+
+export function getWordLen() {
+    return parseInt(localStorage["wordLen"] || "5", 10);
+}
+
+export function getDifficulty() {
+    return parseInt(localStorage["difficulty"] || "0", 10);
+}
