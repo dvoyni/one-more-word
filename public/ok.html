@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
 
-	<title>One more word - VK</title>
+    <title>One more word - VK</title>
 
-	<link rel='icon' type='image/png' href='favicon.png'>
-	<link rel='stylesheet' href='global.css'>
-	<link rel='stylesheet' href='build/bundle.css'>
+    <link rel='icon' type='image/png' href='favicon.png'>
+    <link rel='stylesheet' href='global.css'>
+    <link rel='stylesheet' href='build/bundle.css'>
 
-	<script defer src='build/bundle.js'></script>
-	<script>
-		vkEnable = false;
-		okEnable = true;
-	</script>
+    <script>
+        vkEnable = false;
+        okEnable = true;
+
+        function API_callback(method, result, data) {
+			console.log(`method: ${method}: ${result}\n${JSON.stringify(data)}`)
+        }
+    </script>
+    <script type="text/javascript" src="//api.ok.ru/js/fapi5.js" defer="defer"></script>
+    <script defer src='build/bundle.js'></script>
 </head>
 
 <body>

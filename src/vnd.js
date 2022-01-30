@@ -7,9 +7,6 @@ const vnd = {
     },
     handleNewGame: function () {
     },
-    canInvite: false,
-    handleInvite: function () {
-    },
     buttons: [],
 };
 
@@ -88,6 +85,37 @@ if (vkEnable) {
             }
         }
     ];
+}
+
+if (okEnable) {
+    let gameNum = 0;
+
+    vnd.init = async function () {
+        var rParams = FAPI.Util.getRequestParameters();
+        FAPI.init(rParams["api_server"], rParams["apiconnection"],
+            function () {
+                console.log("ok api initialized");
+            },
+            function (error) {
+                console.log("ok api failed to initialize");
+            }
+        );
+    };
+
+    vnd.handleVictory = async function (newResult) {
+        if (parseInt(localStorage["tries"], 10) >= 10) {
+
+        }
+    }
+
+    vnd.handleNewGame = async function () {
+        gameNum++;
+        if ((gameNum > 1) && (gameNum % 2 === 1)) {
+            FAPI.UI.showAd();
+        }
+    }
+
+    vnd.buttons = [];
 }
 
 export default vnd;

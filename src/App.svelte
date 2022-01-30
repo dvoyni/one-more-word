@@ -1,7 +1,7 @@
 <script>
     import {onMount} from 'svelte';
     import Game from "./Game.svelte";
-    import {createStore, kBsp, kRet, model} from "./model";
+    import {createStore, kBsp, kRet, kScreenHelp, model} from "./model";
     import locale from "./ru";
     import MessagePopup from "./MessagePopup.svelte";
     import EndGamePopup from "./EndGamePopup.svelte";
@@ -10,7 +10,10 @@
     import Settings from "./Settings.svelte";
     import {getDifficulty, getWordLen} from "./storage";
 
-    model.set(createStore(locale.dictionary, locale.keyboard).init(getWordLen(), 6, getDifficulty()))
+    model.set(
+        createStore(locale.dictionary, locale.keyboard)
+            .init(getWordLen(), 6, getDifficulty())
+    .setScreen(kScreenHelp));
 
     function handleKeydown(e) {
         let key = e.key;
@@ -60,7 +63,7 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<Game {locale} version="b16"/>
+<Game {locale} version="b17"/>
 <Help {locale}/>
 <Settings {locale} />
 <MessagePopup {locale}/>
