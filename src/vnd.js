@@ -11,7 +11,7 @@ const vnd = {
 
 if (vkEnable) {
     let gameNum = 0;
-    let token = "";
+    let token = "f1e2c06df1e2c06df1e2c06d54f199c1feff1e2f1e2c06d9012c11b8ec7d9672b6b6b26";//?
     let userId = 0;
 
     vnd.init = async function () {
@@ -30,8 +30,8 @@ if (vkEnable) {
         const VKWebAppGetUserInfo = await bridge.send("VKWebAppGetUserInfo");
         userId = VKWebAppGetUserInfo.id;
 
-        const VKWebAppGetAuthToken = await bridge.send("VKWebAppGetAuthToken", {"app_id": 8061331, "scope": ""});
-        token = VKWebAppGetAuthToken.access_token;
+        //const VKWebAppGetAuthToken = await bridge.send("VKWebAppGetAuthToken", {"app_id": 8061331, "scope": ""});
+        //token = VKWebAppGetAuthToken.access_token;
     };
 
     vnd.handleVictory = async function (newResult) {
