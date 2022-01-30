@@ -18,7 +18,7 @@ const vnd = {
     }
 };
 
-let vkEnable = true;// getParameterByName("vk");
+let vkEnable = getParameterByName("vk");
 if (vkEnable) {
     let gameNum = 0;
     let token = "";
@@ -44,7 +44,7 @@ if (vkEnable) {
         token = VKWebAppGetAuthToken.access_token;
     };
 
-    vnd.handleVictory = async function (newResult, prevResult) {
+    vnd.handleVictory = async function (newResult) {
         await bridge.send("VKWebAppStorageSet", {
             key: "score",
             value: newResult.toString()
@@ -59,7 +59,8 @@ if (vkEnable) {
                 user_id: userId,
                 activity_id: 2,
                 value: score,
-                access_token: token
+                access_token: token,
+                v: "5.131",
             }
         });
 
@@ -67,10 +68,10 @@ if (vkEnable) {
     }
 
     vnd.handleNewGame = async function () {
-        if (gameNum % 2 === 1) {
+        gameNum++;
+        if (gameNum % 2 === 0) {
             await bridge.send("VKWebAppShowNativeAds", {ad_format: "interstitial"});
         }
-        gameNum++;
     }
 }
 
