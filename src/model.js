@@ -176,9 +176,11 @@ export function createStore(dictionary, keyboard) {
             this.currentRow++;
             if (!this.victory) {
                 this.victory = this.currentWord === this.guessedWord;
-                const prev = getTriesAverage();
-                this.averageTries = addTryResult(this.currentRow);
-                vnd.handleVictory(this.averageTries, prev);
+                if (this.victory) {
+                    const prev = getTriesAverage();
+                    this.averageTries = addTryResult(this.currentRow);
+                    vnd.handleVictory(this.averageTries, prev);
+                }
             }
             this.defeat = !this.victory && this.currentRow >= this.field.length;
             this._updateLetters();

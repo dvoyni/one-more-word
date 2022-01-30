@@ -24,33 +24,25 @@ if (vkEnable) {
     let token = "";
     let userId = 0;
 
-    vnd.init = function () {
-        bridge.send('VKWebAppInit')
-            .then(r => {
-                bridge.send("VKWebAppStorageGet", {"keys": ["triesSum", "tries"]})
-                    .then(VKWebAppStorageGet =>
-                        (VKWebAppStorageGet.keys || []).forEach(v => {
-                            switch (v.key) {
-                                case "triesSum":
-                                    localStorage["triesSum"] = v.value;
-                                    break
-                                case "tries":
-                                    localStorage["tries"] = v.value;
-                                    break
-                            }
-                        }))
-                    .catch(console.log);
+    vnd.init = async function () {
+        await bridge.send('VKWebAppInit')
+        const VKWebAppStorageGet = await bridge.send("VKWebAppStorageGet", {"keys": ["triesSum", "tries"]});
+        (VKWebAppStorageGet.keys || []).forEach(v => {
+            switch (v.key) {
+                case "triesSum":
+                    localStorage["triesSum"] = v.value;
+                    break
+                case "tries":
+                    localStorage["tries"] = v.value;
+                    break
+            }
+        })
+        const VKWebAppGetUserInfo = await bridge.send("VKWebAppGetUserInfo");
+        userId = VKWebAppGetUserInfo.id;
 
-                bridge.send("VKWebAppGetAuthToken", {"app_id": 8061331, "scope": ""})
-                    .then(VKWebAppGetAuthToken => token = VKWebAppGetAuthToken.access_token)
-                    .catch(console.log);
-
-                bridge.send("VKWebAppGetUserInfo")
-                    .then(VKWebAppGetUserInfo => userId = VKWebAppGetUserInfo.id)
-                    .catch(console.log);
-            })
-            .catch(console.log);
-    }
+        const VKWebAppGetAuthToken = await bridge.send("VKWebAppGetAuthToken", {"app_id": 8061331, "scope": ""});
+        token = VKWebAppGetAuthToken.access_token;
+    };
 
     vnd.handleVictory = async function (newResult, prevResult) {
         await bridge.send("VKWebAppStorageSet", {
