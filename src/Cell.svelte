@@ -10,7 +10,8 @@
     <div class="inner"
          class:absent="{status === kStatusAbsent}"
          class:misplaced={status === kStatusMisplaced}
-         class:correct={status === kStatusCorrect}>
+         class:correct={status === kStatusCorrect}
+         class:blink={value === "_"}>
         <div>{value}</div>
     </div>
 </div>
@@ -49,4 +50,14 @@
     .correct {
         background-color: #52642b;
     }
+    @keyframes blinker {
+        50% {
+            color: #323436;
+        }
+    }
+
+    .blink {
+        animation: blinker 1s linear infinite;
+    }
+
 </style>
