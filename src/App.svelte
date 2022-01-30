@@ -63,7 +63,7 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<Game {locale} version="b17"/>
+<Game {locale} version="b18"/>
 <Help {locale}/>
 <Settings {locale} />
 <MessagePopup {locale}/>

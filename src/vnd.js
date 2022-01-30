@@ -31,6 +31,11 @@ if (vkEnable) {
         const VKWebAppGetUserInfo = await bridge.send("VKWebAppGetUserInfo");
         userId = VKWebAppGetUserInfo.id;
 
+        const VKWebAppGetLaunchParams = await bridge.send("VKWebAppGetLaunchParams")
+        if (VKWebAppGetLaunchParams.vk_platform !== "desktop_web") {
+            window.body.style.paddingBottom = "10px";
+        }
+
         //const VKWebAppGetAuthToken = await bridge.send("VKWebAppGetAuthToken", {"app_id": 8061331, "scope": ""});
         //token = VKWebAppGetAuthToken.access_token;
     };
