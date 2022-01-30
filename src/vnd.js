@@ -45,20 +45,22 @@ if (vkEnable) {
         });
 
 
-        let score = 10000 - Math.floor(newResult * 1000);
-        await bridge.send("VKWebAppCallAPIMethod", {
-            "method": "secure.addAppEvent",
-            "request_id": Date.now().toString(),
-            "params": {
-                user_id: userId,
-                activity_id: 2,
-                value: score,
-                access_token: token,
-                v: "5.131",
-            }
-        });
+        if (parseInt(localStorage["tries"], 10) >= 10) {
+            let score = 10000 - Math.floor(newResult * 1000);
+            await bridge.send("VKWebAppCallAPIMethod", {
+                "method": "secure.addAppEvent",
+                "request_id": Date.now().toString(),
+                "params": {
+                    user_id: userId,
+                    activity_id: 2,
+                    value: score,
+                    access_token: token,
+                    v: "5.131",
+                }
+            });
 
-        await bridge.send("VKWebAppShowLeaderBoardBox", {user_result: score})
+            await bridge.send("VKWebAppShowLeaderBoardBox", {user_result: score})
+        }
     }
 
     vnd.handleNewGame = async function () {
