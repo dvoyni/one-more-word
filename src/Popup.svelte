@@ -22,6 +22,7 @@
         background-color: #2c2c2c;
         color: #b4b4b4;
         padding: 10vw;
+        margin: 5vw;
         border: 3px solid #646464;
     }
 </style>

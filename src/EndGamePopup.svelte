@@ -29,6 +29,7 @@
                         {/if}
                     {/each}
                 </table>
+                <div>{locale.averageTries}<span class="tries">{$model.averageTries.toFixed(2)}</span></div>
             {/if}
             {#if $model.defeat}
                 <div>{locale.guessedWord}</div>
@@ -87,8 +88,12 @@
         font-size: 3.5vh;
     }
 
-    .button{
+    .button {
         margin-top: 6vh;
     }
 
+    .title, .tries {
+        font-size: 4vh;
+        color: #5694b9;
+    }
 </style>
