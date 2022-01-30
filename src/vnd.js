@@ -1,14 +1,5 @@
 import bridge from '@vkontakte/vk-bridge';
 
-/*function getParameterByName(name, url = window.location.href) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}*/
-
 const vnd = {
     handleVictory: function () {
     },
@@ -18,7 +9,6 @@ const vnd = {
     }
 };
 
-let vkEnable = true;// getParameterByName("vk");
 if (vkEnable) {
     let gameNum = 0;
     let token = "";
