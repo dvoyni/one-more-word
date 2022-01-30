@@ -36,8 +36,12 @@ if (vkEnable) {
 
     vnd.handleVictory = async function (newResult) {
         await bridge.send("VKWebAppStorageSet", {
-            key: "score",
-            value: newResult.toString()
+            key: "triesSum",
+            value: localStorage["triesSum"]
+        });
+        await bridge.send("VKWebAppStorageSet", {
+            key: "tries",
+            value: localStorage["tries"]
         });
 
 
@@ -59,7 +63,7 @@ if (vkEnable) {
 
     vnd.handleNewGame = async function () {
         gameNum++;
-        if (gameNum % 2 === 0) {
+        if ((gameNum > 1) && (gameNum % 2 === 1)) {
             await bridge.send("VKWebAppShowNativeAds", {ad_format: "interstitial"});
         }
     }
