@@ -9,9 +9,11 @@
     let difficulty = getDifficulty();
 
     function handleClick() {
-        setSettings(wordLength, difficulty);
         model.set($model.setScreen(kScreenGame))
-        model.set($model.init(wordLength, 6, difficulty));
+        if (getWordLen() !== wordLength || getDifficulty() !== difficulty) {
+            setSettings(wordLength, difficulty);
+            model.set($model.init(wordLength, 6, difficulty));
+        }
     }
 </script>
 
