@@ -71,8 +71,9 @@ if (vkEnable) {
 
     vnd.handleNewGame = async function () {
         gameNum++;
-        if ((gameNum > 1) && (gameNum % 2 === 1)) {
+        if ((gameNum > 1) /*&& (gameNum % 2 === 1)*/) {
             await bridge.send("VKWebAppShowNativeAds", {ad_format: "interstitial"});
+            window.ym(87246213,'reachGoal','ad_show');
         }
     }
 
